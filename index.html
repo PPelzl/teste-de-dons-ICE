@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste de Dons | Igreja Cristã Evangélica</title>
+  <style>
+    body {
+      font-family: 'Century Gothic', sans-serif;
+      background-color: #f4f7fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #0095D9;
+      color: white;
+      text-align: center;
+      padding: 1em;
+    }
+    header img {
+      max-height: 80px;
+      margin-bottom: 10px;
+    }
+    main {
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    h1 {
+      color: #356EB3;
+    }
+    .question {
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #fff;
+      border-left: 5px solid #0095D9;
+    }
+    .options label {
+      margin-right: 15px;
+    }
+    .results {
+      margin-top: 30px;
+      background: #e8f4fd;
+      padding: 15px;
+      border: 1px solid #ccc;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.9em;
+      padding: 10px;
+      background-color: #356EB3;
+      color: white;
+    }
+    button {
+      background-color: #0095D9;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      font-size: 1em;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #007bb6;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo neutra.png" alt="Logotipo da ICEB">
+    <h1>Igreja Cristã Evangélica</h1>
+    <p>Monte Castelo – Campo Grande/MS</p>
+  </header>
+  <main>
+    <h2>Teste de Dons Espirituais</h2>
+    <p>Para cada afirmação abaixo, selecione a opção que melhor descreve você:</p>
+    <div id="questions"></div>
+    <button onclick="calcularResultado()">Calcular Resultado</button>
+    <div class="results" id="resultado"></div>
+  </main>
+  <footer>
+    &copy; 2025 Igreja Cristã Evangélica • Campo Grande/MS
+  </footer>
+  <script>
+    const perguntas = [ ... ]; // OMITIDO AQUI PARA RESUMO
+    const mapaDons = {
+      A: [0, 9, 18, 27, 36],
+      B: [1, 10, 19, 28, 37],
+      C: [2, 11, 20, 29, 38],
+      D: [3, 12, 21, 30, 39],
+      E: [4, 13, 22, 31, 40],
+      F: [5, 14, 23, 32, 41],
+      G: [6, 15, 24, 33, 42],
+      H: [7, 16, 25, 34, 43],
+      I: [8, 17, 26, 35, 44]
+    };
+    const dons = {
+      A: "Profecia", B: "Serviço", C: "Ensino", D: "Exortação", E: "Contribuição",
+      F: "Governo", G: "Misericórdia", H: "Evangelista", I: "Pastor"
+    };
+    function gerarPerguntas() {
+      const perguntas = [...Array(45).keys()].map((_, i) => document.createElement('div'));
+      const container = document.getElementById("questions");
+      perguntas.forEach((_, index) => {
+        const div = document.createElement("div");
+        div.className = "question";
+        div.innerHTML = `<p><strong>${index + 1}.</strong> Pergunta ${index + 1}</p>
+        <div class="options">
+          <label><input type="radio" name="q${index}" value="3"> 3</label>
+          <label><input type="radio" name="q${index}" value="2"> 2</label>
+          <label><input type="radio" name="q${index}" value="1"> 1</label>
+          <label><input type="radio" name="q${index}" value="0"> 0</label>
+        </div>`;
+        container.appendChild(div);
+      });
+    }
+    function calcularResultado() {
+      const respostas = Array.from({ length: 45 }, (_, i) => {
+        const val = document.querySelector(`input[name='q${i}']:checked`);
+        return val ? parseInt(val.value) : 0;
+      });
+      const somaDons = {};
+      for (const [letra, indices] of Object.entries(mapaDons)) {
+        somaDons[letra] = indices.reduce((acc, idx) => acc + respostas[idx], 0);
+      }
+      const maiorPontuacao = Math.max(...Object.values(somaDons));
+      const donsDominantes = Object.entries(somaDons)
+        .filter(([_, v]) => v === maiorPontuacao)
+        .map(([k]) => dons[k]);
+      document.getElementById("resultado").innerHTML =
+        `<h3>Seu(s) dom(ns) mais evidente(s):</h3><ul>${donsDominantes.map(d => `<li>${d}</li>`).join('')}</ul>`;
+    }
+    gerarPerguntas();
+  </script>
+</body>
+</html>

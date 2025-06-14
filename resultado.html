@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultado do Teste de Dons</title>
+  <style>
+    body {
+      font-family: 'Century Gothic', sans-serif;
+      background-color: #f4f7fa;
+      color: #333;
+      padding: 20px;
+      text-align: center;
+    }
+    header img {
+      max-height: 80px;
+      margin-bottom: 10px;
+    }
+    h1 {
+      color: #0095D9;
+    }
+    .dom-destaque {
+      margin: 20px auto;
+      background-color: #e0f3ff;
+      border: 2px solid #0095D9;
+      border-radius: 10px;
+      padding: 20px;
+      max-width: 600px;
+    }
+    .dom-destaque img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+    }
+    .secundario {
+      color: #555;
+      font-size: 0.9em;
+      margin-top: 15px;
+    }
+    a {
+      display: inline-block;
+      margin-top: 30px;
+      background-color: #0095D9;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo neutra.png" alt="Logo ICEB">
+    <h1>Resultado do Teste de Dons Espirituais</h1>
+  </header>
+  <div class="dom-destaque">
+    <h2 id="domPrincipal"></h2>
+    <img id="imagemPrincipal" src="" alt="Imagem ilustrativa do dom principal">
+  </div>
+  <div class="secundario">
+    <p>Segundo dom com maior pontuação: <strong id="domSecundario"></strong></p>
+  </div>
+  <a href="index.html">Refazer o teste</a>
+
+  <script>
+    const imagensDons = {
+      "Profecia": "https://cdn-icons-png.flaticon.com/512/3909/3909487.png",
+      "Serviço": "https://cdn-icons-png.flaticon.com/512/3159/3159496.png",
+      "Ensino": "https://cdn-icons-png.flaticon.com/512/4228/4228703.png",
+      "Exortação": "https://cdn-icons-png.flaticon.com/512/4334/4334341.png",
+      "Contribuição": "https://cdn-icons-png.flaticon.com/512/808/808573.png",
+      "Governo": "https://cdn-icons-png.flaticon.com/512/2838/2838912.png",
+      "Misericórdia": "https://cdn-icons-png.flaticon.com/512/2965/2965567.png",
+      "Evangelista": "https://cdn-icons-png.flaticon.com/512/1055/1055678.png",
+      "Pastor": "https://cdn-icons-png.flaticon.com/512/2965/2965560.png"
+    };
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const principal = urlParams.get("principal");
+    const secundario = urlParams.get("secundario");
+
+    document.getElementById("domPrincipal").textContent = principal;
+    document.getElementById("domSecundario").textContent = secundario;
+    document.getElementById("imagemPrincipal").src = imagensDons[principal] || "https://cdn-icons-png.flaticon.com/512/992/992651.png";
+    document.getElementById("imagemPrincipal").alt = `Imagem ilustrativa do dom: ${principal}`;
+  </script>
+</body>
+</html>
